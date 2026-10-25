@@ -3,22 +3,22 @@ services:
     image: pgvector/pgvector:pg16
     container_name: deja-postgres
     environment:
-      POSTGRES_USER: deja
-      POSTGRES_PASSWORD: deja
-      POSTGRES_DB: deja
+      POSTGRES_USER: ${POSTGRES_USER:?set in .env}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?set in .env}
+      POSTGRES_DB: ${POSTGRES_DB:?set in .env}
     ports:
-      - "5432:5432"
+      - "127.0.0.1:5432:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
   redis:
     image: redis:7-alpine
     container_name: deja-redis
     ports:
-      - "6379:6379"
+      - "127.0.0.1:6379:6379"
   kafka:
     image: apache/kafka:3.9.0
     container_name: deja-kafka
     ports:
-      - "9092:9092"
+      - "127.0.0.1:9092:9092"
 volumes:
   pgdata:
