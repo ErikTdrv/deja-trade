@@ -6,6 +6,7 @@ import { ENV_FILES, validateEnv } from './config/env';
 import { DatabaseModule } from './database/database.module';
 import { TradesModule } from './trades/trades.module';
 import { ImportModule } from './import/import.module';
+import { KafkaModule } from './kafka/kafka.module';
 
 @Module({
   imports: [
@@ -16,7 +17,8 @@ import { ImportModule } from './import/import.module';
     }),
     DatabaseModule,
     TradesModule,
-    ImportModule
+    ImportModule,
+    KafkaModule,
   ],
   controllers: [AppController],
   providers: [AppService],

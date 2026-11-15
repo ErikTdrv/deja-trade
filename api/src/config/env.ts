@@ -7,6 +7,8 @@ export interface Env {
   POSTGRES_PASSWORD: string;
   POSTGRES_DB: string;
   PORT: number;
+  KAFKA_BROKERS: string;
+  KAFKA_CLIENT_ID: string;
 }
 
 // api/.env wins over the repo-root .env; real env vars win over both.
@@ -50,6 +52,8 @@ export function validateEnv(raw: Record<string, unknown>): Env {
     POSTGRES_PASSWORD: str('POSTGRES_PASSWORD'),
     POSTGRES_DB: str('POSTGRES_DB'),
     PORT: int('PORT', 3000),
+    KAFKA_BROKERS: str('KAFKA_BROKERS'),
+    KAFKA_CLIENT_ID: str('KAFKA_CLIENT_ID'),
   };
 
   if (errors.length) {

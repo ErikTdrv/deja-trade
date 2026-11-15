@@ -1,3 +1,4 @@
 allowBuilds:
   '@parcel/watcher': true
   unrs-resolver: true
+  '@confluentinc/kafka-javascript': true
