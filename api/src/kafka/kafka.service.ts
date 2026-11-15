@@ -42,7 +42,10 @@ export class KafkaService implements OnModuleInit, OnApplicationShutdown {
     await this.producer.disconnect();
   }
 
-  async publish(topic: string, messages: { key: string; value: object }[]): Promise<void> {
+  async publish(
+    topic: string,
+    messages: { key: string; value: object }[],
+  ): Promise<void> {
     await this.producer.send({
       topic,
       messages: messages.map(({ key, value }) => ({

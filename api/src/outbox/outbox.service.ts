@@ -18,4 +18,27 @@ export class OutboxService {
     if (events.length === 0) return;
     await manager.insert(OutboxEvent, events);
   }
+
+  async getUnprocessedRows(
+    manager: EntityManager,
+    limit: number,
+  ): Promise<OutboxEvent[]> {
+    return manager
+      .createQueryBuilder(OutboxEvent, 'o')
+      .where('o.processedAt IS NULL')
+      .setLock('for_no_key_update')
+      .setOnLocked('skip_locked')
+      .limit(limit)
+      .orderBy('o.id')
+      .getMany();
+  }
+
+  async markProcessed(manager: EntityManager, ids: string[]): Promise<void> {
+    await manager
+      .createQueryBuilder(OutboxEvent, 'o')
+      .update(OutboxEvent)
+      .set({ processedAt: () => 'now()' })
+      .where('id IN (:...ids)', { ids })
+      .execute();
+  }
 }
